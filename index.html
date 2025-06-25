@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
   <title>Prom Escape 💖</title>
   <style>
@@ -33,13 +34,25 @@
       background-color: hotpink;
       border: none;
       color: white;
-      padding: 1rem 2.2rem;
-      font-size: 1.2rem;
+      padding: 1.6rem 2.8rem;
+      font-size: 1.7rem;
       border-radius: 12px;
       margin: 0.6rem;
       cursor: pointer;
       transition: all 0.3s ease;
     }
+    buttons {
+      background-color: hotpink;
+      border: none;
+      color: white;
+      padding: 1.2rem 2.3rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      margin: 0.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+     }
 
     input {
       padding: 0.7rem;
@@ -81,13 +94,17 @@
 
     /* 📞 Call Screen Styles */
     #screenCall {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: black;
-      color: white;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;             /* Viewport height = full screen */
+     width: 100vw;              /* Viewport width */
+     background-color: black;
+     color: white;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
     }
 
     #callerPhoto {
@@ -146,7 +163,13 @@
 <!-- PROM FLOW SCREENS -->
 <div class="screen" id="screen0">
   <h2>We’ve been the duo, always in sync —<br>Prom’s coming up… what do you think?</h2>
-  <button onclick="goTo('screen1')">Next 💌</button>
+  
+  <!-- Image Section -->
+  <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; width:400px; height:300px;">
+    <img src="https://imgur.com/OEPKMy3.jpg" style="max-width: 300px; border-radius: 12px;">
+  </div>
+
+  <buttons onclick="goTo('screen1')">Next 💌</buttons>
 </div>
 
 <div class="screen" id="screen1">
