@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prom Escape 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: sans-serif;
+      background: pink;
+      text-align: center;
+      color: #4a004e;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      background-color: hotpink;
+      border: none;
+      color: white;
+      padding: 1rem 2.2rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      margin: 0.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 1rem;
+    }
+
+    #yesBtn, #noBtn {
+      transition: transform 0.4s ease;
+      font-size: 1.3rem;
+      padding: 1.1rem 2.5rem;
+    }
+
+    #finalMessage {
+      display: none;
+      font-size: 1.6rem;
+      font-weight: bold;
+      padding: 2rem;
+      color: #b30059;
+    }
+
+    /* 🍽 MENU SCREEN STYLING */
+    #startScreen {
+      background-color: #6B4F3B;
+      color: #fff1e6;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #menuBtn {
+      background-color: #a47148;
+      font-size: 2rem;
+      padding: 1.5rem 3rem;
+    }
+
+    /* 📞 Call Screen Styles */
+    #screenCall {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: black;
+      color: white;
+    }
+
+    #callerPhoto {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 4px solid white;
+    }
+
+    .call-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      margin: 1rem;
+      cursor: pointer;
+    }
+
+    #answerBtn {
+      background: green;
+      color: white;
+    }
+
+    #declineBtn {
+      background: red;
+      color: white;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<!-- 🍽 MENU SCREEN -->
+<div class="screen active" id="startScreen">
+  <h1>Welcome to the MENU</h1>
+  <p>Tap to reveal something special...</p>
+  <button id="menuBtn" onclick="startExperience()">MENU</button>
+</div>
+
+<!-- 📞 FAKE CALL -->
+<div class="screen" id="screenCall">
+  <h2>Incoming Call...</h2>
+  <img id="callerPhoto" src="https://imgur.com/1iQP9rq.jpg" alt="Caller">
+  <h1 style="margin: 0;">PROMPOSAL</h1>
+  <p>Calling you 💖</p>
+  <div style="display: flex; justify-content: center;">
+    <button class="call-btn" id="declineBtn" onclick="declineCall()">❌</button>
+    <button class="call-btn" id="answerBtn" onclick="answerCall()">✅</button>
+  </div>
+</div>
+
+<!-- PROM FLOW SCREENS -->
+<div class="screen" id="screen0">
+  <h2>We’ve been the duo, always in sync —<br>Prom’s coming up… what do you think?</h2>
+  <button onclick="goTo('screen1')">Next 💌</button>
+</div>
+
+<div class="screen" id="screen1">
+  <h2>Where did our friendship start?</h2>
+  <img src="https://imgur.com/jV5ZEX7.jpg" alt="1">
+  <div>
+    <button onclick="goTo('screen2')">School</button>
+    <button onclick="alert('Try again!')">Party</button>
+    <button onclick="alert('Nope')">Instagram</button>
+    <button onclick="alert('Nice guess, but no!')">In a dream</button>
+  </div>
+</div>
+
+<div class="screen" id="screen2">
+  <h2>Choose your escape vehicle</h2>
+  <div>
+    <button onclick="goTo('screen3')">Boat 🛥️</button>
+    <button onclick="alert('Nooope!')">Donut Float</button>
+    <button onclick="alert('Haha no')">Flying Pizza</button>
+    <button onclick="alert('Try again')">Flying Matcha</button>
+  </div>
+</div>
+
+<div class="screen" id="screen3">
+  <h2>Who’s waiting for you?</h2>
+  <img src="https://imgur.com/NwtFer4.jpg" alt="2">
+  <input type="text" id="nameInput" placeholder="Type his name..." /><br><br>
+  <button onclick="checkName()">Submit</button>
+</div>
+
+<div class="screen" id="screen4">
+  <h2>Prom's coming up…<br>Will you go with me? 💐</h2>
+
+  <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+    <img src="https://imgur.com/QIOmaAw.jpg" alt="3" style="max-width: 200px; border-radius: 12px;">
+    <img src="https://imgur.com/ikCsXV6.jpg" alt="5" style="max-width: 300px; border-radius: 15px;">
+    <img src="https://imgur.com/1iQP9rq.jpg" alt="6" style="max-width: 300px; border-radius: 15px;">
+  </div>
+
+  <div>
+    <button id="yesBtn" onclick="growYes()">YES 💕</button>
+    <button id="noBtn" onclick="shrinkNo()">No 😢</button>
+  </div>
+</div>
+
+<!-- 🎉 Final Message -->
+<div id="finalMessage">
+  🎊 GO NOW TO THE BEACH DESTINATION WHILE ALL YOUR FRIENDS ARE WAITING FOR YOU 🎊
+</div>
+
+<!-- 🔊 AUDIO FILE -->
+<audio id="ringtone" loop>
+  <source src="https://file.garden/aFpk5QVQcXr6Usub/Ayaya%20_%20Chinese%20Phone%20Toy%20Song%20%F0%9F%98%82.mp3" type="audio/mp3" />
+</audio>
+
+<script>
+  const ringtone = document.getElementById('ringtone');
+
+  function startExperience() {
+    // Try to play ringtone once user taps
+    ringtone.play().then(() => {
+      goTo('screenCall');
+    }).catch(() => {
+      alert("Tap again to start the call!");
+    });
+  }
+
+  function answerCall() {
+    ringtone.pause();
+    goTo('screen0');
+  }
+
+  function declineCall() {
+    ringtone.pause();
+    alert("You missed something magical… 😢");
+  }
+
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(s => {
+      s.classList.remove('active');
+      s.style.display = 'none';
+    });
+    const nextScreen = document.getElementById(id);
+    nextScreen.classList.add('active');
+    nextScreen.style.display = 'block';
+  }
+
+  function checkName() {
+    const input = document.getElementById('nameInput').value.trim().toLowerCase();
+    if (input === 'mario') {
+      goTo('screen4');
+    } else {
+      alert("Try again bestie 💭");
+    }
+  }
+
+  let yesClickCount = 0;
+  function growYes() {
+    const btn = document.getElementById('yesBtn');
+    yesClickCount++;
+    const scale = 1 + yesClickCount * 0.3;
+    btn.style.transform = `scale(${scale})`;
+
+    if (yesClickCount >= 10) {
+      btn.style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('screen4').style.display = 'none';
+        document.getElementById('finalMessage').style.display = 'block';
+
+        setInterval(() => {
+          confetti({
+            particleCount: 70,
+            spread: 90,
+            origin: { y: 0.6 }
+          });
+        }, 700);
+      }, 600);
+    }
+  }
+
+  let noClickCount = 0;
+  function shrinkNo() {
+    const noBtn = document.getElementById('noBtn');
+    noClickCount++;
+    const scale = 1 - 0.2 * noClickCount;
+    if (scale > 0) {
+      noBtn.style.transform = `scale(${scale})`;
+    }
+    if (noClickCount >= 2) {
+      noBtn.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
